@@ -1,4 +1,4 @@
-import smtplib, yaml
+import smtplib, yaml, json
 from email.message import EmailMessage
 from sql_query import get_schedule_recommendations
 
@@ -81,13 +81,19 @@ def __get_list(string_or_list):
     except AttributeError:
         return []
 
+#attempt method to create javascript
+def email_format(jsonstring):
+    js = " %s" % (jsonsring)
+    return js;
+
 
 #Driver#
 
 config = __read_config('test2.yaml')
 #print (get_schedule_recommendations()) ##SUCCESS
-bulk = get_schedule_recommendations()
-#print (bulk)##TEST
+bulk = json.loads(get_schedule_recommendations())
+#print (type(bulk))##TEST
+
 #print ("howdy" + ' ' + config['email_settings']['from_email']) ## SUCCESS
-send_email('Test Version 1', bulk, 
-           config['email_settings'])
+#send_email('Test Version 1', bulk, 
+           #config['email_settings'])
