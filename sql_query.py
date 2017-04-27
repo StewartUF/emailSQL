@@ -34,7 +34,7 @@ def get_schedule_recommendations():
 			"""if (boy["person_id"] == 61):
 				pdb.set_trace()"""##TEST
 		boysJSON = json.dumps(boys)
-		#print(boysJSON)##TEST
+		print(boysJSON)##TEST
 		return boysJSON
 		connection.close()
 

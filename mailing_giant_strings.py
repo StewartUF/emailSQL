@@ -1,4 +1,5 @@
 import smtplib, yaml, json
+from json2html import *
 from email.message import EmailMessage
 from sql_query import get_schedule_recommendations
 
@@ -83,17 +84,20 @@ def __get_list(string_or_list):
 
 #attempt method to create javascript
 def email_format(jsonstring):
+    parse
     js = " %s" % (jsonsring)
     return js;
 
 
 #Driver#
 
-config = __read_config('test2.yaml')
+config = __read_config('test1.yaml')
 #print (get_schedule_recommendations()) ##SUCCESS
 bulk = json.loads(get_schedule_recommendations())
-#print (type(bulk))##TEST
+#print (bulk)##TEST
+mytable = json2html.convert(json = bulk)
+#print (mytable)
 
 #print ("howdy" + ' ' + config['email_settings']['from_email']) ## SUCCESS
-#send_email('Test Version 1', bulk, 
-           #config['email_settings'])
+send_email('Test Version 1', "<table><tr><th>Month</th><th>Savings</th></tr></table>", 
+           config['email_settings'])
