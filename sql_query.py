@@ -20,21 +20,20 @@ def get_schedule_recommendations():
 		#result = cursor.fetchmany(size = 5)
 		rows = [x for x in cursor]
 		cols = [x[0] for x in cursor.description]
-		boys = {}
+		boys = []
 		for row in rows:
 			#print (type(row), row)##SUCCESS
-			"""if (type(rows[row]) == datetime):"""##FAILED
 			boy = {}
 			for prop, val in zip(cols, row):
 				if (isinstance(val, datetime.date)):
 					val = str(val)
 				#print (type(val))##TEST
 				boy[prop] = val
-			boys[boy["person_id"]] = boy
+			boys.append(boy)
 			"""if (boy["person_id"] == 61):
 				pdb.set_trace()"""##TEST
 		boysJSON = json.dumps(boys)
-		print(boysJSON)##TEST
+		#print(boysJSON)##TEST
 		return boysJSON
 		connection.close()
 
