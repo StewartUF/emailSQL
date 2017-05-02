@@ -1,6 +1,5 @@
 import smtplib, json
 
-from json2html import *
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from sql_query import get_schedule_recommendations

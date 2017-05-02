@@ -1,4 +1,4 @@
-import pymysql, datetime, json, pdb
+import datetime, json, pdb, pymysql
 
 """
 The script iterates through recommended_visits_with_scheduling_report_details 
