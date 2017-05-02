@@ -1,39 +1,36 @@
-#Stewart Wehmeyer
-#4/19/17
 import pymysql, datetime, json, pdb
 
 """
-1. Get appropriate SQL query (select * from 
-	recommended_visits_with_scheduling_report_details) passed to python
-2. Put the query (result) into HTML table so it is legible
-3. Email query
+The script iterates through recommended_visits_with_scheduling_report_details 
+and creates a JSON string containing patient scheduling data.
+
+The JSON is a list of each row with the corresponding data in dictionaries;
+person_id, site_name, visit_type, etc.-SDW 5/2/17
 """
 
 def get_schedule_recommendations():
+
+	# Connect to database and access rows and columns.
 	connection = pymysql.connect(host = 'i.dmd.dev', user = 'admin', 
 		password = 'password', db = 'app_database')
 	with connection.cursor() as cursor:
 		sql = "SELECT * FROM recommended_visits_with_scheduling_report_details"
 		cursor.execute(sql)
-		#result = cursor.fetchall()
-		#temporarily limit return to first 5 rows ... for ease of testing
-		#result = cursor.fetchmany(size = 5)
 		rows = [x for x in cursor]
 		cols = [x[0] for x in cursor.description]
 		boys = []
+
+		# Build list of dictionaries.
 		for row in rows:
-			#print (type(row), row)##SUCCESS
 			boy = {}
 			for prop, val in zip(cols, row):
 				if (isinstance(val, datetime.date)):
 					val = str(val)
-				#print (type(val))##TEST
 				boy[prop] = val
 			boys.append(boy)
-			"""if (boy["person_id"] == 61):
-				pdb.set_trace()"""##TEST
+
+		# Convert list of dictionaries to JSON.
 		boysJSON = json.dumps(boys)
-		#print(boysJSON)##TEST
 		return boysJSON
 		connection.close()
 
